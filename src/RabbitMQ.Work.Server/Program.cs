@@ -24,7 +24,7 @@ namespace RabbitMQ.Work.Server
 
                     consumer.Received += (model, ea) =>
                     {
-                        Console.WriteLine("Received: {0}", Encoding.UTF8.GetString(ea.Body));
+                        Console.WriteLine(Encoding.UTF8.GetString(ea.Body));
                     };
 
                     channel.BasicConsume("test", true, consumer);
