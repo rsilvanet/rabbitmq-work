@@ -26,10 +26,21 @@ namespace RabbitMQ.Work.Client
                     var message1 = Encoding.UTF8.GetBytes($"Client {guid} connected.");
                     channel.BasicPublish(string.Empty, "test", null, message1);
 
-                    Console.Read();
+                    while (true)
+                    {
+                        var text = Console.ReadLine();
 
-                    var message2 = Encoding.UTF8.GetBytes($"Client {guid} disconnected.");
-                    channel.BasicPublish(string.Empty, "test", null, message2);
+                        if (text == "quit")
+                        {
+                            break;
+                        }
+
+                        var message2 = Encoding.UTF8.GetBytes($"Client {guid} says: {text}");
+                        channel.BasicPublish(string.Empty, "test", null, message2);
+                    }
+
+                    var message3 = Encoding.UTF8.GetBytes($"Client {guid} disconnected.");
+                    channel.BasicPublish(string.Empty, "test", null, message3);
                 }
             }
         }
